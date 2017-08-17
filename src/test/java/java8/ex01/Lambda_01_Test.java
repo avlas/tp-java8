@@ -20,7 +20,10 @@ public class Lambda_01_Test {
 
     // tag::filter[]
     private List<Person> filter(List<Person> persons, PersonPredicate predicate) {
-        // TODO implementer la méthode
+        // TODO Implementer la méthode de maniere imperative
+    	// TODO Construire une liste newListe sur la base de la liste "persons", qui contient que les pesonnes qui passe le test suivant :
+    	// predicate.test(person) == true;
+    	
         return null;
     }
     // end::filter[]
