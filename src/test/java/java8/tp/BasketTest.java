@@ -102,7 +102,7 @@ public class BasketTest {
 	public void test_filter_lambdaFilterInStock() throws Exception {
 		System.out.println("\nLambda way - Articles in stock : ");
 		
-		filteredList = getBasket().filter((Article article) -> !article.isOutOfStock());
+		filteredList = getBasket().filter(article -> !article.isOutOfStock());
 		assert filteredList.size() == 6;
 	}
 
@@ -110,7 +110,7 @@ public class BasketTest {
 	public void test_filter_lambdaFilterInStockAndPrice() throws Exception {
 		System.out.println("\nLambda way - Articles in stock, less then maxPrice : ");
 		
-		filteredList = getBasket().filter((Article article) -> (!article.isOutOfStock() && (article.getPrice() < 2.0)));
+		filteredList = getBasket().filter(article -> (!article.isOutOfStock() && (article.getPrice() < 2.0)));
 		assert filteredList.size() == 1;
 	}
 }
