@@ -14,10 +14,7 @@ public class TestAnonymClass {
 //		
 //		Double solde = mapper.map(acc);
 
-		Mapper mapper = (Account account) -> {
-				return new Person(account.getSolde());
-			} 			
-		;
+		Mapper mapper = (Account account) -> new Person(account.getSolde());
 		
 		Account acc = new Account();
 		acc.setSolde(150.0);
