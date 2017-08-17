@@ -39,23 +39,11 @@ public class Lambda_03_Test {
 		// TODO vérifier qu'une personne à un nom qui commence par last
 		// TODO vérifier qu'une personne à un age > 0
 		// TODO la vérification se fait via une assertion (mot clé assert)
-		PersonProcessor verifyPerson = new PersonProcessor() {
-			public void process(Person person) {
-				assertTrue(person.getFirstname().startsWith("first"));
-			}
-		};
+		PersonProcessor verifyPerson = person -> assertTrue(person.getFirstname().startsWith("first"));
 
-		verifyPerson = new PersonProcessor() {
-			public void process(Person person) {
-				assertTrue(person.getLastname().startsWith("last"));
-			}
-		};
-
-		verifyPerson = new PersonProcessor() {
-			public void process(Person person) {
-				assertTrue(person.getAge() > 0);
-			}
-		};
+		verifyPerson = person -> assertTrue(person.getLastname().startsWith("last"));
+		
+		verifyPerson = person -> assertTrue(person.getAge() > 0);
 
 		assert verifyPerson != null;
 
