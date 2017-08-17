@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import java8.tp.filters.Filter;
+import java8.tp.filters.FilterByStockAndPriceImpl;
+import java8.tp.filters.FilterByStockImpl;
+
 public class BasketTest {
 
 	List<Article> filteredList;
@@ -23,44 +27,90 @@ public class BasketTest {
 
 		return basket;
 	}
-	
-	// Modifier la méthode de la classe Basket précédente afin qu'elle prenne
-	// en paramètre un filtre. Exemple ci-dessous :
-	// articles = basket.filter(new FilterStock());
-	// // Appeler cette même méthode panier.filtrer avec une classe anonyme qui
-	// fait la même chose qu’une des 2 classes précédemment créées.
-	// articles = ...;
-	// // Appeler la méthode filtrer avec une expression lambda
-	// articles = ...;
 
-	// En méthode impérative:
-	// a- méthode dans la classe Basket, qui filtre les articles et retourne uniquement les articles du basket qui sont en stock (outOfStock=false)
+	// Using Impérative implementations
 	@Test
 	public void test_filter_inStock() throws Exception {
+		System.out.println("Impérative way - Articles in stock : ");
+		
 		filteredList = getBasket().filterArticlesByStock();
 		assert filteredList.size() == 6;
 	}
 
-	// b- Méthode dans la classe Basket un peu plus générique, 
-	// qui prend en paramètre stock=O/N et un prix maximum 
-	// et qui retourne la liste des articles du panier qui correspondent aux critères (cf. exemple 1)
+	@Test
+	public void test_filter_inStockAndPrice() throws Exception {
+		System.out.println("\nImpérative way - Articles in stock, less then maxPrice : ");
 
-	// c- vérifier que la méthode fonctionne en testant divers cas de figures.
-	// Exemple (1) de ce qu’il faut obtenir
+		filteredList = getBasket().filterArticlesByStockAndPrice(true, 3.0);
+		assert filteredList.size() == 4;
+	}
+
 	@Test
 	public void test_filter_outOfStockAndPrice() throws Exception {
-		System.out.println("\n Articles out of stock, less then maxPrice : ");
-		
+		System.out.println("\nImpérative way - Articles out of stock, less then maxPrice : ");
+
 		filteredList = getBasket().filterArticlesByStockAndPrice(false, 3.0);
 		assert filteredList.size() == 1;
 	}
 
+	// Using Filter implementations
 	@Test
-	public void test_filter_inStockAndPrice() throws Exception {
-		System.out.println("\n Articles in stock, less then maxPrice : ");
+	public void test_filter_filterInStock() throws Exception {
+		System.out.println("\nFilter way - Articles in stock : ");
 		
-		filteredList = getBasket().filterArticlesByStockAndPrice(true, 2.6);
-		assert filteredList.size() == 3;
+		filteredList = getBasket().filter(new FilterByStockImpl());
+		assert filteredList.size() == 6;
 	}
 
+	@Test
+	public void test_filter_filterInStockAndPrice() throws Exception {
+		System.out.println("\nFilter way - Articles in stock, less then maxPrice : ");
+		
+		filteredList = getBasket().filter(new FilterByStockAndPriceImpl());
+		assert filteredList.size() == 1;
+	}
+
+	// Using Anonymous implementations
+	@Test
+	public void test_filter_anonymeFilterInStock() throws Exception {
+		System.out.println("\nAnonymous way - Articles in stock : ");
+		
+		filteredList = getBasket().filter(new Filter() {
+			@Override
+			public boolean accept(Article article) {
+				return !article.isOutOfStock();
+			}
+		});
+		assert filteredList.size() == 6;
+	}
+
+	@Test
+	public void test_filter_anonymeFilterInStockAndPrice() throws Exception {
+		System.out.println("\nAnonymous way - Articles in stock, less then maxPrice : ");
+		
+		filteredList = getBasket().filter(new Filter() {
+			@Override
+			public boolean accept(Article article) {
+				return (!article.isOutOfStock() && (article.getPrice() < 2.0));
+			}
+		});
+		assert filteredList.size() == 1;
+	}
+
+	// Using Lambda expressions
+	@Test
+	public void test_filter_lambdaFilterInStock() throws Exception {
+		System.out.println("\nLambda way - Articles in stock : ");
+		
+		filteredList = getBasket().filter((Article article) -> !article.isOutOfStock());
+		assert filteredList.size() == 6;
+	}
+
+	@Test
+	public void test_filter_lambdaFilterInStockAndPrice() throws Exception {
+		System.out.println("\nLambda way - Articles in stock, less then maxPrice : ");
+		
+		filteredList = getBasket().filter((Article article) -> (!article.isOutOfStock() && (article.getPrice() < 2.0)));
+		assert filteredList.size() == 1;
+	}
 }
