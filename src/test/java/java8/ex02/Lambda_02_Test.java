@@ -13,47 +13,28 @@ import java8.data.Person;
  * Exercice 02 - Map
  */
 public class Lambda_02_Test {
-	// tag::PersonToAccountMapper[]
-	interface PersonToAccountMapper {
-		Account map(Person p);
-	}
-	// end::PersonToAccountMapper[]
 	
-	// tag::PersonToFirstnameMapper[]
-	interface PersonToFirstnameMapper {
-		String mapToFirstname(Person p);
+// public class Lambda_02_Test <T> {
+// soit <T> List<T>, soit Lambda_02_Test <T> - premier <T> precise a Java que cette methode / class manipule des generiques
+	
+	interface PersonMapper <T> {
+		T map(Person p);
 	}
-	// end::PersonToFirstnameMapper[]
-
-	// Transforme une liste de personnes en liste de comptes
-	// tag::map[]
-	private List<Account> map(List<Person> personList, PersonToAccountMapper mapper) {
-		List<Account> accounts = new ArrayList<>();
+	
+	// Transforme une liste de personnes en liste de accounts / firstnames
+	private <T> List<T> map(List<Person> personList, PersonMapper<T> mapper) {
+		List<T> accounts = new ArrayList<>();
 		for (Person person : personList) {
 			accounts.add(mapper.map(person));
 		}
 		return accounts;
 	}
-	// end::map[]
 
-	// Transforme une liste de personnes en liste de firstnames
-	// tag::map[]
-	private List<String> mapToFirstname(List<Person> personList, PersonToFirstnameMapper mapper) {
-		List<String> firstNames = new ArrayList<>();
-		for (Person person : personList) {
-			firstNames.add(mapper.mapToFirstname(person));
-		}
-		return firstNames;
-	}
-	// end::map[]
-	
-	// tag::test_map_person_to_account[]
 	@Test
 	public void test_map_person_to_account() throws Exception {
 		List<Person> personList = Data.buildPersonList(100);
 
-		// Transforme la liste de personnes en liste de comptes
-		// Tous les comptes ont un solde à 100 par défaut
+		// Transforme la liste de personnes en liste de accounts, dont tous les accounts ont un solde à 100 par défaut
 		List<Account> result = map(personList, person -> new Account(person, new Integer(100)));
 
 		assert result.size() == personList.size();
@@ -62,21 +43,18 @@ public class Lambda_02_Test {
 			assert account.getOwner() != null;
 		}
 	}
-	// end::test_map_person_to_account[]
 
-	// tag::test_map_person_to_firstname[]
 	@Test
 	public void test_map_person_to_firstname() throws Exception {
 
 		List<Person> personList = Data.buildPersonList(100);
 
 		// Transforme la liste de personnes en liste de prénoms
-		List<String> result = mapToFirstname(personList, person -> person.getFirstname());
+		List<String> result = map(personList, person -> person.getFirstname());
 
 		assert result.size() == personList.size();
 		for (String firstname : result) {
 			assert firstname.startsWith("first");
 		}
 	}
-	// end::test_map_person_to_firstname[]
 }
