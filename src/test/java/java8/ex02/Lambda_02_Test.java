@@ -25,29 +25,24 @@ public class Lambda_02_Test {
 	}
 	// end::PersonToFirstnameMapper[]
 
+	// Transforme une liste de personnes en liste de comptes
 	// tag::map[]
 	private List<Account> map(List<Person> personList, PersonToAccountMapper mapper) {
-		// TODO implémenter la méthode pour transformer une liste de personnes
-		// en liste de comptes
-
 		List<Account> accounts = new ArrayList<>();
-
 		for (Person person : personList) {
 			accounts.add(mapper.map(person));
 		}
-
 		return accounts;
 	}
 	// end::map[]
 
+	// Transforme une liste de personnes en liste de firstnames
 	// tag::map[]
 	private List<String> mapToFirstname(List<Person> personList, PersonToFirstnameMapper mapper) {
 		List<String> firstNames = new ArrayList<>();
-
 		for (Person person : personList) {
 			firstNames.add(mapper.mapToFirstname(person));
 		}
-
 		return firstNames;
 	}
 	// end::map[]
@@ -57,8 +52,8 @@ public class Lambda_02_Test {
 	public void test_map_person_to_account() throws Exception {
 		List<Person> personList = Data.buildPersonList(100);
 
-		// TODO transformer la liste de personnes en liste de comptes
-		// TODO tous les objets comptes ont un solde à 100 par défaut
+		// Transforme la liste de personnes en liste de comptes
+		// Tous les comptes ont un solde à 100 par défaut
 		List<Account> result = map(personList, person -> new Account(person, new Integer(100)));
 
 		assert result.size() == personList.size();
@@ -75,7 +70,7 @@ public class Lambda_02_Test {
 
 		List<Person> personList = Data.buildPersonList(100);
 
-		// TODO transformer la liste de personnes en liste de prénoms
+		// Transforme la liste de personnes en liste de prénoms
 		List<String> result = mapToFirstname(personList, person -> person.getFirstname());
 
 		assert result.size() == personList.size();
