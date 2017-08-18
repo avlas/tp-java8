@@ -12,12 +12,11 @@ import java8.data.Person;
 /**
  * Exercice 02 - Map
  */
-public class Lambda_02_Test {
-	
+public class Lambda_02_Test  {	
 // public class Lambda_02_Test <T> {
 // soit <T> List<T>, soit Lambda_02_Test <T> - premier <T> precise a Java que cette methode / class manipule des generiques
 	
-	interface PersonMapper <T> {
+	interface PersonMapper<T> {
 		T map(Person p);
 	}
 	

@@ -15,13 +15,10 @@ import java8.data.Person;
 public class Lambda_01_Test {
 	List<Person> filteredList = new ArrayList<>();
 
-	// tag::PersonPredicate[]
 	interface PersonPredicate {
 		boolean test(Person p);
 	}
-	// end::PersonPredicate[]
 
-	// tag::filter[]
 	private List<Person> filter(List<Person> persons, PersonPredicate predicate) {
 		// Imperative 
 		// newListe base sur "persons", qui contient que les pesonnes qui passe le test suivant :
@@ -35,9 +32,7 @@ public class Lambda_01_Test {
 		}
 		return filteredList;
 	}
-	// end::filter[]
 
-	// tag::test_filter_by_age[]
 	@Test
 	public void test_filter_by_age() throws Exception {
 
@@ -51,9 +46,7 @@ public class Lambda_01_Test {
 			assert person.getAge() > 17;
 		}
 	}
-	// end::test_filter_by_age[]
 
-	// tag::test_filter_by_firstname[]
 	@Test
 	public void test_filter_by_firstname() throws Exception {
 
@@ -66,9 +59,7 @@ public class Lambda_01_Test {
 		assert result.get(0).getFirstname().equals("first_10");
 
 	}
-	// end::test_filter_by_firstname[]
 
-	// tag::test_filter_by_password[]
 	@Test
 	public void test_filter_by_password() throws Exception {
 
@@ -86,5 +77,4 @@ public class Lambda_01_Test {
 			assert person.getPassword().equals("test");
 		}
 	}
-	// end::test_filter_by_password[]
 }

@@ -14,21 +14,16 @@ import java8.data.Person;
  */
 public class Lambda_03_Test {
 
-	// tag::PersonProcessor[]
 	interface PersonProcessor {
 		void process(Person p);
 	}
-	// end::PersonProcessor[]
 
-	// tag::forEach[]
 	private void forEach(List<Person> source, PersonProcessor processor) {
 		for (Person person : source) {
 			processor.process(person);
 		}
 	}
-	// end::forEach[]
-
-	// tag::test_verify_person[]
+	
 	@Test
 	public void test_verify_person() throws Exception {
 
@@ -47,6 +42,4 @@ public class Lambda_03_Test {
 
 		forEach(personList, verifyPerson);
 	}
-	// end::test_verify_person[]
-
 }
