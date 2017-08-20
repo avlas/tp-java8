@@ -28,35 +28,35 @@ public class BasketTest {
 		basket.getArticles().add(new Article("Camembert", "Produits laitiers", 2.8, false));
 		basket.getArticles().add(new Article("Yaourth", "Produits laitiers", 3.1, false));
 
-		Stream<Article> stream = basket.getArticles().stream();
-		
-		double result = stream.filter(a-> a.getPrice() > 3.0)
-				  .map(a -> a.getPrice())
-				  .reduce((a,b)-> a+b)
-				  .get();	// optional = conteneur du resultat
-		
-		// Equivalent way
-		// intermediate operations => no treatement
-		stream = basket.getArticles().stream();
-		Stream<Article> articleStream = stream.filter(a-> a.getPrice() > 3.0);		
-		
-		Stream<Double> priceStream = articleStream.map(a -> a.getPrice());
-		
-		// final operation => treatement
-		result = priceStream.reduce((a,b)-> a+b).get();	// optional = conteneur du resultat
-
-		stream = basket.getArticles().stream();
-		List<Article> articlesFilters = stream.filter(a-> a.getPrice() > 3.0)
-															.collect(Collectors.toList());	
-		
-		stream = basket.getArticles().stream(); 	// error Execution si on ne reinitialise pas le stream, car l'ancien a ete deja ferme 
-		List<Article> articlesFilters2 = stream.filter(a-> a.getPrice() < 3.0)
-											 	.collect(Collectors.toList());	
+//		Stream<Article> stream = basket.getArticles().stream();
+//		
+//		double result = stream.filter(a-> a.getPrice() > 3.0)
+//				  .map(a -> a.getPrice())
+//				  .reduce((a,b)-> a+b)
+//				  .get();	// optional = conteneur du resultat
+//		
+//		// Equivalent way
+//		// intermediate operations => no treatement
+//		stream = basket.getArticles().stream();
+//		Stream<Article> articleStream = stream.filter(a-> a.getPrice() > 3.0);		
+//		
+//		Stream<Double> priceStream = articleStream.map(a -> a.getPrice());
+//		
+//		// final operation => treatement
+//		result = priceStream.reduce((a,b)-> a+b).get();	// optional = conteneur du resultat
+//
+//		stream = basket.getArticles().stream();
+//		List<Article> articlesFilters = stream.filter(a-> a.getPrice() > 3.0)
+//															.collect(Collectors.toList());	
+//		
+//		stream = basket.getArticles().stream(); 	// error Execution si on ne reinitialise pas le stream, car l'ancien a ete deja ferme 
+//		List<Article> articlesFilters2 = stream.filter(a-> a.getPrice() < 3.0)
+//											 	.collect(Collectors.toList());	
 		
 		return basket;
 	}
 
-	// Using Impérative implementations
+	// Imperative implementations
 	@Test
 	public void test_filter_inStock() throws Exception {
 		System.out.println("Impérative way - Articles in stock : ");
@@ -81,7 +81,7 @@ public class BasketTest {
 		assert filteredList.size() == 1;
 	}
 
-	// Using Filter implementations
+	// Filter implementations
 	@Test
 	public void test_filter_filterInStock() throws Exception {
 		System.out.println("\nFilter way - Articles in stock : ");
@@ -98,7 +98,7 @@ public class BasketTest {
 		assert filteredList.size() == 1;
 	}
 
-	// Using Anonymous implementations
+	// Anonymous implementations
 	@Test
 	public void test_filter_anonymeFilterInStock() throws Exception {
 		System.out.println("\nAnonymous way - Articles in stock : ");
