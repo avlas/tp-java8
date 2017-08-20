@@ -14,16 +14,16 @@ import java8.data.Person;
  */
 public class Lambda_02_Test  {	
 // public class Lambda_02_Test <T> {
-// soit <T> List<T>, soit Lambda_02_Test <T> - premier <T> precise a Java que cette methode / class manipule des generiques
+// soit <T> List<T>, soit Lambda_02_Test <T>, dont premier <T> precise a Java que cette methode/class manipule des generiques
 	
 	interface PersonMapper<T> {
 		T map(Person p);
 	}
 	
-	// Transforme une liste de personnes en liste de accounts / firstnames
-	private <T> List<T> map(List<Person> personList, PersonMapper<T> mapper) {
+	// Transforme une liste de Personnes en liste de Accounts/Firstnames
+	private <T> List<T> map(List<Person> persons, PersonMapper<T> mapper) {
 		List<T> accounts = new ArrayList<>();
-		for (Person person : personList) {
+		for (Person person : persons) {
 			accounts.add(mapper.map(person));
 		}
 		return accounts;
@@ -31,12 +31,12 @@ public class Lambda_02_Test  {
 
 	@Test
 	public void test_map_person_to_account() throws Exception {
-		List<Person> personList = Data.buildPersonList(100);
+		List<Person> persons = Data.buildPersonList(100);
 
-		// Transforme la liste de personnes en liste de accounts, dont tous les accounts ont un solde à 100 par défaut
-		List<Account> result = map(personList, person -> new Account(person, new Integer(100)));
+		// Transforme la liste de Personnes en liste de Accounts, dont tous les Accounts ont un solde à 100 par défault
+		List<Account> result = map(persons, person -> new Account(person, new Integer(100)));
 
-		assert result.size() == personList.size();
+		assert result.size() == persons.size();
 		for (Account account : result) {
 			assert account.getBalance().equals(100);
 			assert account.getOwner() != null;

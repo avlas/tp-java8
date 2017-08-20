@@ -18,16 +18,15 @@ public class Lambda_03_Test {
 		void process(Person p);
 	}
 
-	private void forEach(List<Person> source, PersonProcessor processor) {
-		for (Person person : source) {
+	private void forEach(List<Person> persons, PersonProcessor processor) {
+		for (Person person : persons) {
 			processor.process(person);
 		}
 	}
 	
 	@Test
 	public void test_verify_person() throws Exception {
-
-		List<Person> personList = Data.buildPersonList(100);
+		List<Person> persons = Data.buildPersonList(100);
 
 		// Verification ( via une assertion (mot clé assert) ) = prenom d'une personne commence par first
 		PersonProcessor verifyPerson = person -> assertTrue(person.getFirstname().startsWith("first"));
@@ -39,7 +38,6 @@ public class Lambda_03_Test {
 		verifyPerson = person -> assertTrue(person.getAge() > 0);
 
 		assert verifyPerson != null;
-
-		forEach(personList, verifyPerson);
+		forEach(persons, verifyPerson);
 	}
 }

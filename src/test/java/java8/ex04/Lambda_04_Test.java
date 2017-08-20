@@ -32,8 +32,8 @@ public class Lambda_04_Test {
     }
 
     class FuncCollection<T> {
-
         private Collection<T> list = new ArrayList<>();
+        
         public void add(T a) {
             list.add(a);
         }
@@ -44,7 +44,8 @@ public class Lambda_04_Test {
         }
 
         private FuncCollection<T> filter(GenericPredicate<T> predicate) {
-            FuncCollection<T> result = new FuncCollection<>();            
+            FuncCollection<T> result = new FuncCollection<>();   
+            
     		for (T t : this.list) {
     			if (predicate.test(t) == true) {
     				result.list.add(t);
@@ -54,7 +55,8 @@ public class Lambda_04_Test {
         }
 
         private <E> FuncCollection<E> map(GenericMapper<T, E> mapper) {
-            FuncCollection<E> result = new FuncCollection<>();            
+            FuncCollection<E> result = new FuncCollection<>();  
+            
     		for (T t : this.list) {
     			result.add(mapper.map(t));
     		}    		
@@ -70,8 +72,7 @@ public class Lambda_04_Test {
 
     @Test
     public void test_filter_map_forEach_with_vars() throws Exception {
-
-        List<Person> personList = Data.buildPersonList(100);
+        List<Person> personList = Data.buildPersonList(100);        
         FuncCollection<Person> personFuncCollection = new FuncCollection<>();
         personFuncCollection.addAll(personList);
 
@@ -99,7 +100,6 @@ public class Lambda_04_Test {
     
     @Test
     public void test_filter_map_forEach() throws Exception {
-
         List<Person> personList = Data.buildPersonList(100);        
         FuncCollection<Person> personFuncCollection = new FuncCollection<>();
         personFuncCollection.addAll(personList);
@@ -107,8 +107,7 @@ public class Lambda_04_Test {
         personFuncCollection
                 // Liste des personnes ayant un age > 50
                 .filter(person -> (person.getAge() >= 50) ? true : false)
-                // Transforme liste de personnes en liste de accounts 
-                // Un account a par défaut un solde à 1000.
+                // Transforme liste de Personnes en liste de Accounts. Un account a par défaut un solde à 1000.
                 .map(person -> new Account(person, new Integer(1000)))
         		// Verification ( via une assertion (mot clé assert) ) = chaque compte a un solde à 1000 &&  chaque titulaire de compte a un age > 50
                 .forEach(account -> assertTrue(account.getBalance().equals(1000) && account.getOwner().getAge() >= 50));
